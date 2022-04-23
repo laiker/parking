@@ -3,38 +3,38 @@ namespace App;
 
 final class FileParkingRepository implements ParkingRepository
 {
-    private static $filename = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'parkings.txt';
-    
-    public static function create(Parking $object)
+    public $filename = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'parkings.txt';
+
+    public function create(Parking $object)
     {
-        $arParkings = self::getData();
+        $arParkings = $this->getData();
         $arParkings[] = $object;
-        self::saveData($arParkings);
+        $this->saveData($arParkings);
     }
 
-    public static function save($parkingId, Parking $object)
+    public function save($parkingId, Parking $object)
     {
-        $arParkings = self::getData();
+        $arParkings = $this->getData();
 
         if (!isset($arParkings[$parkingId])) {
             throw new \Exception("Parking does not exist");
         }
 
-        $arParkings = self::getData();
+        $arParkings = $this->getData();
         $arParkings[$parkingId] = $object;
-        self::saveData($arParkings);
+        $this->saveData($arParkings);
     }
 
-    public static function remove($parkingId)
+    public function remove($parkingId)
     {
-        $arParkings = self::getData();
+        $arParkings = $this->getData();
         unset($arParkings[$parkingId]);
-        self::saveData($arParkings);
+        $this->saveData($arParkings);
     }
 
-    public static function findById($parkingId)
+    public function findById($parkingId)
     {
-        $arParkings = self::getData();
+        $arParkings = $this->getData();
 
         if (!isset($arParkings[$parkingId])) {
             throw new \Exception("Parking does not exist");
@@ -43,25 +43,21 @@ final class FileParkingRepository implements ParkingRepository
         return $arParkings[$parkingId];
     }
 
-    public static function getAll()
+    public function getAll()
     {
-        return self::getData();
+        return $this->getData();
     }
 
-    public static function getData()
+    public function getData()
     {
-        return \file_exists(self::$filename)
-            ? \unserialize(file_get_contents(self::$filename))
+        return \file_exists($this->filename)
+            ? \unserialize(file_get_contents($this->filename))
             : [];
     }
 
-    public static function saveData(array $parkings)
+    public function saveData(array $parkings)
     {
-        if (!\file_exists( self::$filename)) {
-            return \touch(self::$filename);
-        }
-
-        \file_put_contents( $_SERVER["DOCUMENT_ROOT"] . self::$filename, \serialize($parkings));
+        \file_put_contents($this->filename, \serialize($parkings));
     }
 
 

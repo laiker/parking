@@ -3,11 +3,11 @@ namespace App;
 
 interface ParkingRepository
 {
-    public static function create(Parking $object);
-    public static function save($parkingId, Parking $object);
-    public static function remove($parkingId);
-    public static function findById($parkingId);
-    public static function getAll();
-    public static function getData();
-    public static function saveData(array $parkings);
+    public function create(Parking $object);
+    public function save($parkingId, Parking $object);
+    public function remove($parkingId);
+    public function findById($parkingId);
+    public function getAll();
+    public function getData();
+    public function saveData(array $parkings);
 }
