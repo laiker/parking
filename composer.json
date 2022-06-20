@@ -1,0 +1,22 @@
+{
+    "name": "laiker/parking",
+    "type": "library",
+    "license": "MIT",
+    "description" : "parking project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ruslan Demin",
+            "email": "laikernest@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}
